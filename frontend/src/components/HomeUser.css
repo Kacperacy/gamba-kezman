@@ -1,0 +1,95 @@
+.home-user {
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.home-user-title {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.home-user-container {
+    flex: 1 1 0%;
+    display: flex;
+    flex-direction: column;
+}
+
+.home-user-container-profile {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+}
+
+.home-user-container-profile-image {
+    height: 5em;
+    aspect-ratio: 1/1;
+    border-radius: 50%;
+}
+
+.home-user-container-vote {
+    flex: 1 1 0%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+}
+
+.home-user-container-vote-button {
+    height: 100%;
+    width: 50%;
+    color: white;
+    cursor: pointer;
+    border-radius: 1rem;
+    border: 1px solid transparent;
+    margin: 0.3em 0.6em;
+    font-size: 5rem;
+    font-weight: 500;
+    font-family: inherit;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: linear 0.25s;
+    user-select: none;
+}
+
+.home-user-container-vote-button-yes {
+    background: url("https://cdn.7tv.app/emote/6127ab36c02e2cf0f8be8de0/4x.webp");
+    background-size: cover;
+    background-position: center;
+    opacity: 0.4;
+
+}
+
+.home-user-container-vote-button-yes:hover {
+    background: url("https://cdn.7tv.app/emote/6127ab36c02e2cf0f8be8de0/4x.webp");
+    background-size: cover;
+    background-position: center;
+    opacity: 1;
+
+}
+
+.home-user-container-vote-button-no {
+    background: url("https://cdn.7tv.app/emote/6342d468eddd547f5127a7bf/4x.webp");
+    background-size: cover;
+    background-position: center;
+    opacity: 0.4;
+}
+
+.home-user-container-vote-button-no:hover {
+    background: url("https://cdn.7tv.app/emote/6342d468eddd547f5127a7bf/4x.webp");
+    background-size: cover;
+    background-position: center;
+    opacity: 1;
+}
+
+.home-user-image-yoooo {
+    height: 4rem;
+}
