@@ -1,8 +1,5 @@
-import dotenv from "dotenv";
 import { MongoDBClient } from "../../clients/MongoDBClient";
 import User from "../../models/User";
-
-dotenv.config();
 
 export const updateUserData = async (
   userId: string,

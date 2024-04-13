@@ -1,10 +1,7 @@
 import { Router, Request, Response } from "express";
-import dotenv from "dotenv";
 import { TwitchAuthGuard } from "../../util/TwitchAuthGuard";
 import { HttpStatusCode } from "axios";
 import { updateUserData } from "./authTwitch.service";
-
-dotenv.config();
 
 const router = Router();
 
