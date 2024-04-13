@@ -10,13 +10,11 @@ export default class CheckMatchId {
     this.cronJob = new CronJob(
       "* * * * *",
       async () => {
-        async () => {
-          try {
-            await this.handle();
-          } catch (err) {
-            Logger.getInstance().error("CheckMatchId error", err);
-          }
-        };
+        try {
+          await this.handle();
+        } catch (err) {
+          Logger.getInstance().error("CheckMatchId error", err);
+        }
       },
       null,
       true
