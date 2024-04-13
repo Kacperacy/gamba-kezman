@@ -13,16 +13,6 @@ pipeline {
         USERS_COLLECTION_NAME = credentials('users-collection-name')
     }
     stages {
-        stage('Build Backend') {
-            steps {
-                sh 'cd backend && npm install'
-            }
-        }
-        stage('Deploy Backend') {
-            steps {
-                sh 'cd backend && npm run start'
-            }
-        }
         stage('Build Frontend') {
             steps {
                 sh 'cd frontend && npm install && npm run build'
@@ -31,6 +21,16 @@ pipeline {
         stage('Deploy Frontend') {
             steps {
                 sh 'cd frontend && serve dist -s -p 5173'
+            }
+        }
+        stage('Build Backend') {
+            steps {
+                sh 'cd backend && npm install'
+            }
+        }
+        stage('Deploy Backend') {
+            steps {
+                sh 'cd backend && npm run start'
             }
         }
     }
