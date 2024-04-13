@@ -41,9 +41,10 @@ export class TwitchAuthGuard {
         }
       );
 
+      const login = validateResponse.data.login;
       const userId = validateResponse.data.user_id;
 
-      return { accessToken, refreshToken, userId };
+      return { accessToken, refreshToken, userId, login };
     } catch (error: any) {
       console.error("Error generating token:");
       throw error;

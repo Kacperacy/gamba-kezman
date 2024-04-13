@@ -3,12 +3,14 @@ import User from "../../models/User";
 
 export const updateUserData = async (
   userId: string,
+  login: string,
   accessToken: string,
   refreshToken: string
 ): Promise<void> => {
   const client = MongoDBClient.getInstance();
   const user = {
     twitchId: userId,
+    twitchLogin: login,
     twitchAccessToken: accessToken,
     twitchRefreshToken: refreshToken,
   } as User;

@@ -25,6 +25,7 @@ router.get("/auth/twitch/login", async (req: Request, res: Response) => {
 
     updateUserData(
       userData.userId,
+      userData.login,
       userData.accessToken,
       userData.refreshToken
     );
