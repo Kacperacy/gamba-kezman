@@ -11,7 +11,6 @@ export const AuthTwitchHandler: React.FC = () => {
   const backendUrl = Config.getBackendUrl();
 
   useEffect(() => {
-    console.log("KOD: " + code);
     if (code) {
       axios
         .get(
@@ -21,7 +20,6 @@ export const AuthTwitchHandler: React.FC = () => {
         )
         .then((res) => {
           setResult(res.data);
-          console.log(res);
         })
         .catch((err) => {
           setResult("ERROR");
