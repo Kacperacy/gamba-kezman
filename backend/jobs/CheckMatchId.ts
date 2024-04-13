@@ -30,9 +30,7 @@ export default class CheckMatchId {
 
       if (lastMatch !== RiotClient.currentMatchId) {
         Logger.getInstance().info("New match detected", lastMatch);
-        const results = MongoDBClient.getInstance().getMatchVotes(
-          RiotClient.currentMatchId
-        );
+        const results = MongoDBClient.getInstance().getMatchVotes(lastMatch);
         Logger.getInstance().info("Match results", results);
         RiotClient.currentMatchId = lastMatch;
       }
