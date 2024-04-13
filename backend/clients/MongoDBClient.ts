@@ -24,6 +24,7 @@ export class MongoDBClient {
         deprecationErrors: true,
       },
     });
+    this.client.connect();
   }
 
   async updateUser(user: User): Promise<void> {
