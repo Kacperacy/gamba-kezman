@@ -6,6 +6,7 @@ pipeline {
                 script {
                     // Retrieve backend .env file content
                     def backendEnvContent = credentials('4e484dcd-0b9a-48e6-8b20-6934d23e80cb')
+                    println backendEnvContent
                     
                     // Retrieve frontend .env file content
                     def frontendEnvContent = credentials('0e7fd50f-d4c9-4d11-b742-7e4fa6f5fc3a')
