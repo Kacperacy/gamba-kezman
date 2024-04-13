@@ -40,8 +40,6 @@ export class MongoDBClient {
       );
     } catch (err) {
       Logger.getInstance().error("update user error", err);
-    } finally {
-      this.client.close();
     }
   }
 
@@ -63,8 +61,6 @@ export class MongoDBClient {
     } catch (err) {
       Logger.getInstance().error("get user by twitch access token error", err);
       throw err;
-    } finally {
-      this.client.close();
     }
   }
 }
