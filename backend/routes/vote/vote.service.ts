@@ -13,7 +13,7 @@ export const makeVote = async (
   } as Vote;
 
   try {
-    return await MongoDBClient.getInstance().makeVote(voteData);
+    return await MongoDBClient.getInstance().makeVote(userId, voteData);
   } catch (err) {
     console.error(err);
     return "error";

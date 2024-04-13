@@ -4,6 +4,7 @@ import { Logger } from "../util/Logger";
 export class RiotClient {
   private static instance: RiotClient;
   private static apiKey = process.env.RIOT_API_KEY || "";
+  public static currentMatchId = "";
 
   public static kezmanPuuid =
     "jgo3_ws7PCwGaLHwrq3IpOlAgTAR2AIdBjzJBpimW5FqUkiXf8KORU-KrNhERtpUNFzgHDCves1v-A";

@@ -23,7 +23,7 @@ router.get("/auth/twitch/login", async (req: Request, res: Response) => {
       return res.status(HttpStatusCode.Unauthorized).send();
     }
 
-    const id = updateUserData(
+    updateUserData(
       userData.userId,
       userData.accessToken,
       userData.refreshToken

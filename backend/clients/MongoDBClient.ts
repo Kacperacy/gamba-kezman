@@ -1,4 +1,4 @@
-import { MongoClient, ServerApiVersion } from "mongodb";
+import { Collection, MongoClient, ServerApiVersion } from "mongodb";
 import User from "../models/User";
 import { Logger } from "../util/Logger";
 import { Vote, VoteStatus } from "../models/Vote";
@@ -65,22 +65,28 @@ export class MongoDBClient {
     }
   }
 
-  async makeVote(vote: Vote): Promise<VoteStatus> {
+  async makeVote(userId: string, vote: Vote): Promise<VoteStatus> {
     try {
-      const votes = this.client
+      const users = this.client
         .db(process.env.USERS_DB_NAME)
-        .collection(process.env.VOTES_COLLECTION_NAME || "votes");
+        .collection(
+          process.env.VOTES_COLLECTION_NAME || "votes"
+        ) as Collection<User>;
 
-      const existingVote = await votes.findOne({
-        userId: vote.userId,
-        matchId: vote.matchId,
+      const existingVote = await users.findOne({
+        userId: userId,
+        "votes.matchId": vote.matchId,
       });
 
       if (existingVote) {
         return "alreadyVoted";
       }
 
-      await votes.insertOne(vote);
+      await users.updateOne(
+        { userId: userId },
+        { $push: { votes: vote } },
+        { upsert: true }
+      );
 
       return "voteSuccess";
     } catch (err) {
