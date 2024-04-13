@@ -10,3 +10,8 @@ export type VoteStatus =
   | "alreadyVoted"
   | "noMatchFound"
   | "error";
+
+export interface VoteResult {
+  userId: string;
+  isVoteCorrect: boolean;
+}

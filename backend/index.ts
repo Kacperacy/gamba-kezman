@@ -4,6 +4,7 @@ import * as bodyParser from "body-parser";
 import routes from "./routes/routes";
 import HttpException from "./models/HttpException";
 import dotenv from "dotenv";
+import CheckMatchId from "./jobs/CheckMatchId";
 
 dotenv.config();
 
@@ -49,3 +50,5 @@ const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.info(`server up on port ${PORT}`);
 });
+
+new CheckMatchId();

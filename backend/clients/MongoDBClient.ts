@@ -1,7 +1,8 @@
 import { Collection, MongoClient, ServerApiVersion } from "mongodb";
 import User from "../models/User";
 import { Logger } from "../util/Logger";
-import { Vote, VoteStatus } from "../models/Vote";
+import { Vote, VoteResult, VoteStatus } from "../models/Vote";
+import { RiotClient } from "./RiotClient";
 
 export class MongoDBClient {
   private client: MongoClient;
@@ -92,6 +93,39 @@ export class MongoDBClient {
     } catch (err) {
       Logger.getInstance().error("make vote error", err);
       return "error";
+    }
+  }
+
+  async getMatchVotes(matchId: string): Promise<VoteResult[]> {
+    try {
+      const users = this.client
+        .db(process.env.USERS_DB_NAME)
+        .collection(
+          process.env.USERS_COLLECTION_NAME || "users"
+        ) as Collection<User>;
+
+      const matchResult = (await RiotClient.getInstance().getMatchResult(
+        matchId
+      ))
+        ? "yes"
+        : "no";
+
+      const votes = await users.find({ "votes.matchId": matchId }).toArray();
+
+      return votes.map((user) => {
+        const vote = user.votes.find((vote) => vote.matchId === matchId);
+        if (!vote) {
+          throw new Error("Vote not found");
+        }
+
+        return {
+          userId: user.twitchId,
+          isVoteCorrect: vote.vote === matchResult,
+        };
+      });
+    } catch (err) {
+      Logger.getInstance().error("get match votes error", err);
+      return [];
     }
   }
 }

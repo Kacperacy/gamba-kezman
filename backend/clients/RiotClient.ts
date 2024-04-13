@@ -28,4 +28,21 @@ export class RiotClient {
       return "";
     }
   }
+
+  async getMatchResult(matchId: string): Promise<boolean> {
+    try {
+      const response = await axios.get(
+        `https://europe.api.riotgames.com/tft/match/v1/matches/${matchId}?api_key=${RiotClient.apiKey}`
+      );
+
+      return (
+        response.data.info.participants.find(
+          (participant: any) => participant.puuid === RiotClient.kezmanPuuid
+        ).placement < 4
+      );
+    } catch (error) {
+      Logger.getInstance().error("Error getting match result", error);
+      return false;
+    }
+  }
 }
