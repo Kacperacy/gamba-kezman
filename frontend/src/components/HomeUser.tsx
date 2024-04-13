@@ -51,6 +51,11 @@ const HomeUser = () => {
     );
   };
 
+  const logout = () => {
+    PersistentStore.removeKey("token");
+    window.location.reload();
+  };
+
   return (
     <div className="home-user">
       <div className="home-user-title">
@@ -76,6 +81,7 @@ const HomeUser = () => {
                 alt=""
               />
               <h3>@{user?.display_name}</h3>
+              <button onClick={logout}>Wyloguj</button>
             </div>
             <h2>Obstawiaj czy Kezman22 zrobi bottom</h2>
             <div className="home-user-container-vote">
