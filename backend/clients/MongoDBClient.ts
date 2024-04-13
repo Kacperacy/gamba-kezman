@@ -70,7 +70,7 @@ export class MongoDBClient {
       const users = this.client
         .db(process.env.USERS_DB_NAME)
         .collection(
-          process.env.VOTES_COLLECTION_NAME || "votes"
+          process.env.USERS_COLLECTION_NAME || "users"
         ) as Collection<User>;
 
       const existingVote = await users.findOne({
