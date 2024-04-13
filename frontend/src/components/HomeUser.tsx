@@ -36,6 +36,21 @@ const HomeUser = () => {
       });
   }, []);
 
+  const vote = (vote: string) => {
+    if (!user) return;
+    if (vote !== "yes" && vote !== "no") return;
+    if (
+      confirm(
+        `Czy na pewno chcesz zagłosować na "${vote == "yes" ? "TAK" : "NO"}"?`
+      ) === false
+    )
+      return;
+
+    axios.get(
+      `${Config.getBackendUrl()}/api/vote?userId=${user.id}&vote=${vote}`
+    );
+  };
+
   return (
     <div className="home-user">
       <div className="home-user-title">
@@ -64,10 +79,16 @@ const HomeUser = () => {
             </div>
             <h2>Obstawiaj czy Kezman22 zrobi bottom</h2>
             <div className="home-user-container-vote">
-              <div className="home-user-container-vote-button home-user-container-vote-button-yes">
+              <div
+                onClick={() => vote("yes")}
+                className="home-user-container-vote-button home-user-container-vote-button-yes"
+              >
                 TAK
               </div>
-              <div className="home-user-container-vote-button home-user-container-vote-button-no">
+              <div
+                onClick={() => vote("no")}
+                className="home-user-container-vote-button home-user-container-vote-button-no"
+              >
                 NIE
               </div>
             </div>
