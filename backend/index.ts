@@ -2,7 +2,7 @@ import express from "express";
 import cors from "cors";
 import * as bodyParser from "body-parser";
 import routes from "./routes/routes";
-import HttpException from "./models/http-exception.model";
+import HttpException from "./models/HttpException";
 import dotenv from "dotenv";
 
 dotenv.config();

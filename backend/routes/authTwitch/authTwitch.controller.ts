@@ -2,6 +2,7 @@ import { Router, Request, Response } from "express";
 import dotenv from "dotenv";
 import { TwitchAuthGuard } from "../../util/TwitchAuthGuard";
 import { HttpStatusCode } from "axios";
+import { updateUserData } from "./authTwitch.service";
 
 dotenv.config();
 
@@ -19,13 +20,19 @@ router.get("/auth/twitch/login", async (req: Request, res: Response) => {
   }
 
   try {
-    const token = await TwitchAuthGuard.generateToken(authCode, redirectUri);
+    const userData = await TwitchAuthGuard.generateToken(authCode, redirectUri);
 
-    if (!token) {
+    if (!userData) {
       return res.status(HttpStatusCode.Unauthorized).send();
     }
 
-    res.status(HttpStatusCode.Ok).send(token);
+    const id = updateUserData(
+      userData.userId,
+      userData.accessToken,
+      userData.refreshToken
+    );
+
+    res.status(HttpStatusCode.Ok).send(userData.accessToken);
   } catch (e) {
     console.error(e);
     res.status(HttpStatusCode.InternalServerError).send();
