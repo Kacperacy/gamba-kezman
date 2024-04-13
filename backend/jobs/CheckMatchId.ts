@@ -10,6 +10,7 @@ export default class CheckMatchId {
     this.cronJob = new CronJob(
       "* * * * *",
       async () => {
+        console.log("Checking match id");
         try {
           await this.handle();
         } catch (err) {
