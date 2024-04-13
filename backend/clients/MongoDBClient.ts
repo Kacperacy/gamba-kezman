@@ -74,7 +74,7 @@ export class MongoDBClient {
         ) as Collection<User>;
 
       const existingVote = await users.findOne({
-        userId: userId,
+        twitchId: userId,
         "votes.matchId": vote.matchId,
       });
 
@@ -83,7 +83,7 @@ export class MongoDBClient {
       }
 
       await users.updateOne(
-        { userId: userId },
+        { twitchId: userId },
         { $push: { votes: vote } },
         { upsert: true }
       );
