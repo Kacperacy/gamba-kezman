@@ -7,7 +7,6 @@ export const makeVote = async (
   vote: string
 ): Promise<VoteStatus> => {
   const voteData = {
-    userId,
     matchId,
     vote,
   } as Vote;
