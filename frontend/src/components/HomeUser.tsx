@@ -25,7 +25,6 @@ export type VoteStatus =
 
 const HomeUser = () => {
   const [user, setUser] = useState<User | null>(null);
-  const [voteResult, setVoteResult] = useState<VoteStatus | null>(null);
 
   const tryRefreshToken = async () => {
     const token = PersistentStore.getKey("token");
@@ -75,9 +74,7 @@ const HomeUser = () => {
       `${Config.getBackendUrl()}/vote?userId=${user.id}&vote=${vote}`
     );
 
-    setVoteResult(result.data);
-
-    switch (voteResult) {
+    switch (result.data) {
       case "voteSuccess":
         alert("Głos został oddany pomyślnie!");
         break;
@@ -85,7 +82,7 @@ const HomeUser = () => {
         alert("Już oddałeś głos!");
         break;
       case "noMatchFound":
-        alert("Nie znaleziono meczu!");
+        alert("Kezman nie jest w grze!");
         break;
       case "error":
         alert("Wystąpił błąd!");
