@@ -14,7 +14,7 @@ export const AuthTwitchHandler: React.FC = () => {
     if (code) {
       axios
         .get(
-          `${backendUrl}/api/auth/twitch/login?authCode=${code}&redirectUri=${encodeURIComponent(
+          `${backendUrl}/auth/twitch/login?authCode=${code}&redirectUri=${encodeURIComponent(
             Config.getTwitchLoginRedirectUri()
           )}`
         )

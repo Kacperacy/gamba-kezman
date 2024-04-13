@@ -4,4 +4,4 @@ import voteController from "./vote/vote.controller";
 
 const api = Router().use(twitchAuthController).use(voteController);
 
-export default Router().use("/api", api);
+export default Router().use("/kezman", api);

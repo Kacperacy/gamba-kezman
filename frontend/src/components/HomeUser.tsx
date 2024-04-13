@@ -20,6 +20,23 @@ type User = {
 const HomeUser = () => {
   const [user, setUser] = useState<User | null>(null);
 
+  const tryRefreshToken = async () => {
+    const token = PersistentStore.getKey("token");
+    if (!token) return;
+
+    try {
+      const newToken = await axios.get(
+        `${Config.getBackendUrl()}/auth/twitch/refresh?token=${token}`
+      );
+      PersistentStore.setKey("token", newToken.data);
+    } catch (err) {
+      PersistentStore.removeKey("token");
+      console.error(err);
+    } finally {
+      window.location.reload();
+    }
+  };
+
   useEffect(() => {
     axios
       .get("https://api.twitch.tv/helix/users", {
@@ -32,6 +49,7 @@ const HomeUser = () => {
         setUser(res.data["data"][0]);
       })
       .catch((err) => {
+        tryRefreshToken();
         console.error(err);
       });
   }, []);
@@ -47,7 +65,7 @@ const HomeUser = () => {
       return;
 
     await axios.get(
-      `${Config.getBackendUrl()}/api/vote?userId=${user.id}&vote=${vote}`
+      `${Config.getBackendUrl()}/vote?userId=${user.id}&vote=${vote}`
     );
   };
 

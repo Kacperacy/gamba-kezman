@@ -36,4 +36,29 @@ router.get("/auth/twitch/login", async (req: Request, res: Response) => {
   }
 });
 
+/**
+ * GET auth/twitch/refresh
+ * Handles the refresh process for Twitch
+ */
+router.get("/auth/twitch/refresh", async (req: Request, res: Response) => {
+  const { token } = req.query;
+
+  if (typeof token !== "string") {
+    return res.status(HttpStatusCode.BadRequest).send("Invalid parameters");
+  }
+
+  try {
+    const newToken = await TwitchAuthGuard.refreshToken(token);
+
+    if (!newToken) {
+      return res.status(HttpStatusCode.Unauthorized).send();
+    }
+
+    res.status(HttpStatusCode.Ok).send(newToken);
+  } catch (e) {
+    console.error(e);
+    res.status(HttpStatusCode.InternalServerError).send();
+  }
+});
+
 export default router;

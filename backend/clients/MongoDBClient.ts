@@ -43,4 +43,27 @@ export class MongoDBClient {
       this.client.close();
     }
   }
+
+  async getUserByTwitchAccessToken(accessToken: string): Promise<User> {
+    try {
+      const users = this.client
+        .db(process.env.USERS_DB_NAME)
+        .collection(process.env.USERS_COLLECTION_NAME || "users");
+
+      const user = (await users.findOne({
+        twitchAccessToken: accessToken,
+      })) as User;
+
+      if (!user) {
+        throw new Error("User not found");
+      }
+
+      return user;
+    } catch (err) {
+      Logger.getInstance().error("get user by twitch access token error", err);
+      throw err;
+    } finally {
+      this.client.close();
+    }
+  }
 }
