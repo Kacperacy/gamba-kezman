@@ -30,7 +30,7 @@ export class MongoDBClient {
   async updateUser(user: User): Promise<void> {
     try {
       const users = this.client
-        .db(process.env.USERS_DB_NAME)
+        .db(process.env.USERS_DB_NAME || "twitch")
         .collection(process.env.USERS_COLLECTION_NAME || "users");
 
       await users.updateOne(
