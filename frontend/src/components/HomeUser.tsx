@@ -36,7 +36,7 @@ const HomeUser = () => {
       });
   }, []);
 
-  const vote = (vote: string) => {
+  const vote = async (vote: string) => {
     if (!user) return;
     if (vote !== "yes" && vote !== "no") return;
     if (
@@ -46,7 +46,7 @@ const HomeUser = () => {
     )
       return;
 
-    axios.get(
+    await axios.get(
       `${Config.getBackendUrl()}/api/vote?userId=${user.id}&vote=${vote}`
     );
   };

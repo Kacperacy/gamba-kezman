@@ -42,8 +42,8 @@ pipeline {
 }
 
 def parseAndInjectEnv(envContent) {
-    envContent.split('\n').each { line ->
-        def keyValue = line.split('=')
+    envContent.tokenize('\n').each { line ->
+        def keyValue = line.tokenize('=')
         if (keyValue.size() == 2) {
             env[keyValue[0].trim()] = keyValue[1].trim()
         }

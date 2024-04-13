@@ -1,5 +1,6 @@
 import { Router } from "express";
 import dotenv from "dotenv";
+import { RiotClient } from "../../clients/RiotClient";
 
 dotenv.config();
 
@@ -16,9 +17,14 @@ router.get("/vote", async (req, res) => {
     return res.status(400).send("Invalid parameters");
   }
 
+  if (vote !== "yes" && vote !== "no") {
+    return res.status(400).send("Invalid vote");
+  }
+
   try {
-    // Do something with the vote
-    res.status(200).send();
+    const lastMatchId = await RiotClient.getInstance().getLastMatch();
+
+    res.status(200).json(lastMatchId);
   } catch (e) {
     console.error(e);
     res.status(500).send();
