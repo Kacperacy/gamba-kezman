@@ -13,7 +13,7 @@ router.get("/auth/twitch/login", async (req: Request, res: Response) => {
   const { authCode, redirectUri } = req.query;
 
   if (typeof authCode !== "string" || typeof redirectUri !== "string") {
-    return res.status(400).send("Invalid parameters");
+    return res.status(HttpStatusCode.BadRequest).send("Invalid parameters");
   }
 
   try {

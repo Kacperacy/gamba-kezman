@@ -1,6 +1,7 @@
 import { MongoClient, ServerApiVersion } from "mongodb";
 import User from "../models/User";
 import { Logger } from "../util/Logger";
+import { Vote, VoteStatus } from "../models/Vote";
 
 export class MongoDBClient {
   private client: MongoClient;
@@ -61,6 +62,30 @@ export class MongoDBClient {
     } catch (err) {
       Logger.getInstance().error("get user by twitch access token error", err);
       throw err;
+    }
+  }
+
+  async makeVote(vote: Vote): Promise<VoteStatus> {
+    try {
+      const votes = this.client
+        .db(process.env.USERS_DB_NAME)
+        .collection(process.env.VOTES_COLLECTION_NAME || "votes");
+
+      const existingVote = await votes.findOne({
+        userId: vote.userId,
+        matchId: vote.matchId,
+      });
+
+      if (existingVote) {
+        return "alreadyVoted";
+      }
+
+      await votes.insertOne(vote);
+
+      return "voteSuccess";
+    } catch (err) {
+      Logger.getInstance().error("make vote error", err);
+      return "error";
     }
   }
 }

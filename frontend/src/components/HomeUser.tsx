@@ -17,8 +17,15 @@ type User = {
   email: string;
 };
 
+export type VoteStatus =
+  | "voteSuccess"
+  | "alreadyVoted"
+  | "noMatchFound"
+  | "error";
+
 const HomeUser = () => {
   const [user, setUser] = useState<User | null>(null);
+  const [voteResult, setVoteResult] = useState<VoteStatus | null>(null);
 
   const tryRefreshToken = async () => {
     const token = PersistentStore.getKey("token");
@@ -54,7 +61,7 @@ const HomeUser = () => {
       });
   }, []);
 
-  const vote = async (vote: string) => {
+  const makeVote = async (vote: string) => {
     if (!user) return;
     if (vote !== "yes" && vote !== "no") return;
     if (
@@ -64,9 +71,26 @@ const HomeUser = () => {
     )
       return;
 
-    await axios.get(
+    const result = await axios.get(
       `${Config.getBackendUrl()}/vote?userId=${user.id}&vote=${vote}`
     );
+
+    setVoteResult(result.data);
+
+    switch (voteResult) {
+      case "voteSuccess":
+        alert("Głos został oddany pomyślnie!");
+        break;
+      case "alreadyVoted":
+        alert("Już oddałeś głos!");
+        break;
+      case "noMatchFound":
+        alert("Nie znaleziono meczu!");
+        break;
+      case "error":
+        alert("Wystąpił błąd!");
+        break;
+    }
   };
 
   const logout = () => {
@@ -104,13 +128,13 @@ const HomeUser = () => {
             <h2>Obstawiaj czy Kezman22 zrobi bottom</h2>
             <div className="home-user-container-vote">
               <div
-                onClick={() => vote("yes")}
+                onClick={() => makeVote("yes")}
                 className="home-user-container-vote-button home-user-container-vote-button-yes"
               >
                 TAK
               </div>
               <div
-                onClick={() => vote("no")}
+                onClick={() => makeVote("no")}
                 className="home-user-container-vote-button home-user-container-vote-button-no"
               >
                 NIE
