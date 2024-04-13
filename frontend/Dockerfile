@@ -5,10 +5,11 @@ WORKDIR /app
 COPY package*.json ./
 COPY package-lock.json ./
 RUN npm ci
+RUN npm install -g serve
 COPY . .
 
 ENV NODE_ENV=production
 ENV IS_HOSTED=true
 
 RUN npm run build
-ENTRYPOINT node ./dist/index.js
+ENTRYPOINT serve dist -s -p 5173
