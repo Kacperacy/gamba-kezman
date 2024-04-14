@@ -55,7 +55,7 @@ export class RiotClient {
       return (
         (response.data.info.participants.find(
           (participant: any) => participant.puuid === RiotClient.kezmanPuuid
-        ).placement as number) < 4
+        ).placement as number) > 4
       );
     } catch (error) {
       Logger.getInstance().error("Error getting match result", error);
