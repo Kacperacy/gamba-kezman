@@ -65,7 +65,9 @@ const HomeUser = () => {
     if (vote !== "yes" && vote !== "no") return;
     if (
       confirm(
-        `Czy na pewno chcesz zagłosować na "${vote == "yes" ? "TAK" : "NIE"}"?`
+        `Czy na pewno chcesz zagłosować na "${
+          vote == "yes" ? "BOTTOM" : "TOPKA"
+        }"?`
       ) === false
     )
       return;
