@@ -24,7 +24,7 @@ const Home = ({ children }: HomeProps) => {
     <div className="home">
       <div className="home-title">
         <h1>GAMBA KEZMANA - GK</h1>
-        <h2>Obstawiaj wynik gierki Kezmana</h2>
+        <h2>Zgaduj które miejsce zajmie Kezman</h2>
       </div>
       <div className="home-container">
         {children && children}

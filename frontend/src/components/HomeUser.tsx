@@ -124,7 +124,7 @@ const HomeUser = () => {
               <h3>@{user?.display_name}</h3>
               <button onClick={logout}>Wyloguj</button>
             </div>
-            <h2>Obstawiaj wynik gry Kezmana!</h2>
+            <h2>Które miejsce zajmie Kezman?</h2>
             <div className="home-user-container-vote">
               <div
                 onClick={() => makeVote("no")}
