@@ -115,7 +115,7 @@ export class MongoDBClient {
 
       const votes = await users.find({ "votes.matchId": oldMatchId }).toArray();
 
-      return votes.map((user) => {
+      const voteResults: VoteResult[] = votes.map((user) => {
         const vote = user.votes.find((vote) => vote.matchId === oldMatchId);
         if (!vote) {
           throw new Error("Vote not found");
@@ -126,6 +126,20 @@ export class MongoDBClient {
           isVoteCorrect: vote.vote === matchResult,
         };
       });
+
+      voteResults.forEach(async (result) => {
+        try {
+          await users.updateOne(
+            { twitchId: result.userId },
+            { $set: { "votes.$[vote].isVoteCorrect": result.isVoteCorrect } },
+            { arrayFilters: [{ "vote.matchId": oldMatchId }] }
+          );
+        } catch (err) {
+          Logger.getInstance().error("update vote result error", err);
+        }
+      });
+
+      return voteResults;
     } catch (err) {
       Logger.getInstance().error("get match votes error", err);
       return [];

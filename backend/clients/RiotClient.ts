@@ -14,7 +14,23 @@ export class RiotClient {
     return this.instance;
   }
 
-  private constructor() {}
+  private constructor() {
+    if (!RiotClient.apiKey) {
+      Logger.getInstance().error("RIOT_API_KEY not found in config");
+      throw new Error("RIOT_API_KEY not found in config");
+    }
+
+    this.setMatchId();
+  }
+
+  async setMatchId(): Promise<void> {
+    try {
+      const lastMatch = await this.getLastMatch();
+      RiotClient.currentMatchId = lastMatch;
+    } catch (error) {
+      Logger.getInstance().error("Error setting match id", error);
+    }
+  }
 
   async getLastMatch(): Promise<string> {
     try {

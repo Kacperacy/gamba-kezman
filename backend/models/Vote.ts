@@ -3,6 +3,7 @@ import { ObjectId } from "mongodb";
 export interface Vote {
   matchId: string;
   vote: string;
+  isVoteCorrect?: boolean;
 }
 
 export type VoteStatus =

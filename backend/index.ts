@@ -5,6 +5,7 @@ import routes from "./routes/routes";
 import HttpException from "./models/HttpException";
 import dotenv from "dotenv";
 import CheckMatchId from "./jobs/CheckMatchId";
+import { RiotClient } from "./clients/RiotClient";
 
 dotenv.config();
 
