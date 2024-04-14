@@ -45,6 +45,7 @@ export class RiotClient {
     }
   }
 
+  // Jeżeli bottom to zwraca true
   async getMatchResult(matchId: string): Promise<boolean> {
     try {
       const response = await axios.get(
@@ -52,9 +53,9 @@ export class RiotClient {
       );
 
       return (
-        response.data.info.participants.find(
+        (response.data.info.participants.find(
           (participant: any) => participant.puuid === RiotClient.kezmanPuuid
-        ).placement < 4
+        ).placement as number) < 4
       );
     } catch (error) {
       Logger.getInstance().error("Error getting match result", error);
