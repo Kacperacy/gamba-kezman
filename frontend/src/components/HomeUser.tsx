@@ -121,19 +121,19 @@ const HomeUser = () => {
               <h3>@{user?.display_name}</h3>
               <button onClick={logout}>Wyloguj</button>
             </div>
-            <h2>Obstawiaj czy Kezman22 zrobi bottom</h2>
+            <h2>Obstawiaj wynik gry Kezmana!</h2>
             <div className="home-user-container-vote">
-              <div
-                onClick={() => makeVote("yes")}
-                className="home-user-container-vote-button home-user-container-vote-button-yes"
-              >
-                TAK
-              </div>
               <div
                 onClick={() => makeVote("no")}
                 className="home-user-container-vote-button home-user-container-vote-button-no"
               >
-                NIE
+                TOPKA
+              </div>
+              <div
+                onClick={() => makeVote("yes")}
+                className="home-user-container-vote-button home-user-container-vote-button-yes"
+              >
+                BOTTOM
               </div>
             </div>
           </>
