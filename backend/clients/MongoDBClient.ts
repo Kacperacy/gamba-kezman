@@ -96,7 +96,10 @@ export class MongoDBClient {
     }
   }
 
-  async getMatchVotes(matchId: string): Promise<VoteResult[]> {
+  async getMatchVotes(
+    oldMatchId: string,
+    newMatchId: string
+  ): Promise<VoteResult[]> {
     try {
       const users = this.client
         .db(process.env.USERS_DB_NAME)
@@ -105,15 +108,15 @@ export class MongoDBClient {
         ) as Collection<User>;
 
       const matchResult = (await RiotClient.getInstance().getMatchResult(
-        matchId
+        newMatchId
       ))
         ? "yes"
         : "no";
 
-      const votes = await users.find({ "votes.matchId": matchId }).toArray();
+      const votes = await users.find({ "votes.matchId": oldMatchId }).toArray();
 
       return votes.map((user) => {
-        const vote = user.votes.find((vote) => vote.matchId === matchId);
+        const vote = user.votes.find((vote) => vote.matchId === oldMatchId);
         if (!vote) {
           throw new Error("Vote not found");
         }

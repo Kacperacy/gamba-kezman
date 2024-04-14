@@ -24,7 +24,7 @@ router.get("/vote", async (req, res) => {
   }
 
   try {
-    const lastMatchId = await RiotClient.getInstance().getLastMatch();
+    const lastMatchId = RiotClient.currentMatchId;
 
     if (!lastMatchId) {
       return res.status(HttpStatusCode.BadRequest).send("No match found");

@@ -10,7 +10,6 @@ export default class CheckMatchId {
     this.cronJob = new CronJob(
       "* * * * *",
       async () => {
-        console.log("Checking match id");
         try {
           await this.handle();
         } catch (err) {
@@ -30,7 +29,10 @@ export default class CheckMatchId {
 
       if (lastMatch !== RiotClient.currentMatchId) {
         Logger.getInstance().info("New match detected", lastMatch);
-        const results = MongoDBClient.getInstance().getMatchVotes(lastMatch);
+        const results = await MongoDBClient.getInstance().getMatchVotes(
+          RiotClient.currentMatchId,
+          lastMatch
+        );
         Logger.getInstance().info("Match results", results);
         RiotClient.currentMatchId = lastMatch;
       }
