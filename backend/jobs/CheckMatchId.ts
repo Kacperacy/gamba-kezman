@@ -2,6 +2,8 @@ import { CronJob } from "cron";
 import { Logger } from "../util/Logger";
 import { RiotClient } from "../clients/RiotClient";
 import { MongoDBClient } from "../clients/MongoDBClient";
+import { VoteResult } from "../models/Vote";
+import axios from "axios";
 
 export default class CheckMatchId {
   cronJob: CronJob;
@@ -33,10 +35,30 @@ export default class CheckMatchId {
 
       if (lastMatch !== RiotClient.currentMatchId) {
         Logger.getInstance().info("New match detected", lastMatch);
-        const results = await MongoDBClient.getInstance().getMatchVotes(
+        const results = (await MongoDBClient.getInstance().getMatchVotes(
           RiotClient.currentMatchId,
           lastMatch
-        );
+        )) as VoteResult[];
+
+        try {
+          for (const result of results) {
+            if (!result.isVoteCorrect) {
+              const data = {
+                userId: result.userId,
+                streamer: "kezman22",
+                time: 1800,
+                message: "Źle przewidziałeś wynik gierki kezmana beka",
+              };
+
+              const params = data as unknown as Record<string, string>;
+
+              await axios.post("https://dynamix-bot.glitch.me/timeout", params);
+            }
+          }
+        } catch (err) {
+          Logger.getInstance().error("Error banowanie", err);
+        }
+
         Logger.getInstance().info("Match results", results);
         RiotClient.currentMatchId = lastMatch;
       }
