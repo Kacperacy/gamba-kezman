@@ -117,7 +117,6 @@ const HomeUser = () => {
               <img
                 className="home-user-container-profile-image"
                 src={user?.profile_image_url}
-                alt="../assets/logo-kezman.png"
               />
               <h3>@{user?.display_name}</h3>
               <button onClick={logout}>Wyloguj</button>

@@ -14,5 +14,6 @@ export type VoteStatus =
 
 export interface VoteResult {
   userId: string;
+  twitchLogin: string;
   isVoteCorrect: boolean;
 }

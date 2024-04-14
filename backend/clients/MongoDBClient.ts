@@ -123,6 +123,7 @@ export class MongoDBClient {
 
         return {
           userId: user.twitchId,
+          twitchLogin: user.twitchLogin,
           isVoteCorrect: vote.vote === matchResult,
         };
       });
