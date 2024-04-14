@@ -10,6 +10,10 @@ export default class CheckMatchId {
     this.cronJob = new CronJob(
       "* * * * *",
       async () => {
+        Logger.getInstance().info(
+          "Checking match id",
+          RiotClient.currentMatchId
+        );
         try {
           await this.handle();
         } catch (err) {
