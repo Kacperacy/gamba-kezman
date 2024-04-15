@@ -34,6 +34,10 @@
     background-size: cover;
 }
 
+.home-user-container-info {
+    margin-top: 1rem;
+}
+
 .home-user-container-vote {
     flex: 1 1 0%;
     display: flex;
