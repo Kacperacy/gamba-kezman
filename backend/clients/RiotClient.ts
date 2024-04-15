@@ -7,7 +7,7 @@ export class RiotClient {
   public static currentMatchId = "";
 
   public static kezmanPuuid =
-    "jgo3_ws7PCwGaLHwrq3IpOlAgTAR2AIdBjzJBpimW5FqUkiXf8KORU-KrNhERtpUNFzgHDCves1v-A";
+    "HRmdOJWk-iH1tPFznQpE-YMwBeFbVbeD3hgNVkxjHyJN9os_FbmHu3NKyHMjau_7O62mtQrEWG6vag";
 
   static getInstance(): RiotClient {
     if (!this.instance) this.instance = new RiotClient();
