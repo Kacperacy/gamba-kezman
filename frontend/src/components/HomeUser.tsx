@@ -119,7 +119,10 @@ const HomeUser = () => {
               <img
                 className="home-user-container-profile-image"
                 src={user?.profile_image_url}
-                alt=""
+                onError={({ currentTarget }) => {
+                  currentTarget.onerror = null; // prevents looping
+                  currentTarget.src = "../assets/logo-kezman.png";
+                }}
               />
               <h3>@{user?.display_name}</h3>
               <button onClick={logout}>Wyloguj</button>
