@@ -36,6 +36,8 @@
 
 .home-user-container-info {
     margin-top: 1rem;
+    margin-block-start: 0;
+    margin-block-end: 0;
 }
 
 .home-user-container-vote {
