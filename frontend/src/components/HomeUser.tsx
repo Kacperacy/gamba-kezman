@@ -125,13 +125,11 @@ const HomeUser = () => {
               <button onClick={logout}>Wyloguj</button>
             </div>
             <h2>Które miejsce zajmie Kezman?</h2>
-            <div className="home-user-container-info">
-              <h3>Do wygrania: nic</h3>
-              <h3>
-                Do przegrania: ban na czat na 30 minut na kanale{" "}
-                <a href="https://www.twitch.tv/kezman22">Kezmana</a>
-              </h3>
-            </div>
+            <h5>Do wygrania: nic</h5>
+            <h5>
+              Do przegrania: ban na czat na 30 minut na kanale{" "}
+              <a href="https://www.twitch.tv/kezman22">Kezmana</a>
+            </h5>
             <div className="home-user-container-vote">
               <div
                 onClick={() => makeVote("no")}
