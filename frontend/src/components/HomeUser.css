@@ -34,6 +34,13 @@
     background-size: cover;
 }
 
+.home-user-container-info {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: space-around;
+}
+
 .home-user-container-vote {
     flex: 1 1 0%;
     display: flex;
