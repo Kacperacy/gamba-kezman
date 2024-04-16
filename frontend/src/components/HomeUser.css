@@ -30,8 +30,6 @@
     height: 5em;
     aspect-ratio: 1/1;
     border-radius: 50%;
-    background-image: url("../assets/logo-kezman.png");
-    background-size: cover;
 }
 
 .home-user-container-info {
