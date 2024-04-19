@@ -3,6 +3,10 @@ import { useEffect, useState } from "react";
 import { PersistentStore } from "../util/PersistentStore";
 import { Config } from "../Config";
 import "./HomeUser.css";
+import Profile from "./HomeUser/Profile";
+import Voting from "./HomeUser/Voting";
+import TopBar from "./HomeUser/TopBar";
+import Info from "./HomeUser/Info";
 
 type User = {
   id: string;
@@ -60,93 +64,18 @@ const HomeUser = () => {
       });
   }, []);
 
-  const makeVote = async (vote: string) => {
-    if (!user) return;
-    if (vote !== "yes" && vote !== "no") return;
-    if (
-      confirm(
-        `Czy na pewno chcesz zagłosować na "${
-          vote == "yes" ? "BOTTOM" : "TOPKA"
-        }"?`
-      ) === false
-    )
-      return;
-
-    const result = await axios.get(
-      `${Config.getBackendUrl()}/vote?userId=${user.id}&vote=${vote}`
-    );
-
-    switch (result.data) {
-      case "voteSuccess":
-        alert("Głos został oddany pomyślnie!");
-        break;
-      case "alreadyVoted":
-        alert("Już oddałeś głos!");
-        break;
-      case "noMatchFound":
-        alert("Kezman nie jest w grze!");
-        break;
-      case "error":
-        alert("Wystąpił błąd!");
-        break;
-    }
-  };
-
-  const logout = () => {
-    PersistentStore.removeKey("token");
-    window.location.reload();
-  };
-
   return (
     <div className="home-user">
-      <div className="home-user-title">
-        <img
-          className="home-user-image-yoooo"
-          src="https://cdn.7tv.app/emote/6139e92833f0020ec54a8339/4x.webp"
-          alt="yoooo"
-        />
-        <h1>Witam cię bramkarzu!</h1>{" "}
-        <img
-          className="home-user-image-yoooo"
-          src="https://cdn.7tv.app/emote/6139e92833f0020ec54a8339/4x.webp"
-          alt="yoooo"
-        />
-      </div>
+      <TopBar />
       <div className="home-user-container">
         {user && (
           <>
-            <div className="home-user-container-profile">
-              <img
-                className="home-user-container-profile-image"
-                src={user?.profile_image_url}
-                onError={({ currentTarget }) => {
-                  currentTarget.onerror = null; // prevents looping
-                  currentTarget.src = "../assets/logo-kezman.png";
-                }}
-              />
-              <h3>@{user?.display_name}</h3>
-              <button onClick={logout}>Wyloguj</button>
-            </div>
-            <h2>Które miejsce zajmie Kezman?</h2>
-            <h5 className="home-user-container-info">Do wygrania: nic</h5>
-            <h5 className="home-user-container-info">
-              Do przegrania: ban na czat na 30 minut na kanale{" "}
-              <a href="https://www.twitch.tv/kezman22">Kezmana</a>
-            </h5>
-            <div className="home-user-container-vote">
-              <div
-                onClick={() => makeVote("no")}
-                className="home-user-container-vote-button home-user-container-vote-button-no"
-              >
-                TOPKA
-              </div>
-              <div
-                onClick={() => makeVote("yes")}
-                className="home-user-container-vote-button home-user-container-vote-button-yes"
-              >
-                BOTTOM
-              </div>
-            </div>
+            <Profile
+              profileImageUrl={user?.profile_image_url}
+              displayName={user?.display_name}
+            />
+            <Info />
+            <Voting userId={user?.id} />
           </>
         )}
       </div>
